@@ -153,7 +153,18 @@ public class Toast extends CordovaPlugin {
                 if (motionEvent.getAction() != MotionEvent.ACTION_DOWN) {
                   return false;
                 }
+                /* --> CAUSE NULL POINTER EXCEPTION. getView is not null, but other method result cause NPE
                 if (mostRecentToast == null || !mostRecentToast.getView().isShown()) {
+                  getViewGroup().setOnTouchListener(null);
+                  return false;
+                }
+                */
+                try {
+                  if (mostRecentToast == null || !mostRecentToast.getView().isShown()) {
+                    getViewGroup().setOnTouchListener(null);
+                    return false;
+                  }
+                } catch(NullPointerException npe) {
                   getViewGroup().setOnTouchListener(null);
                   return false;
                 }
